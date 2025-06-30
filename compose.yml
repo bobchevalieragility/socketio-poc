@@ -1,0 +1,30 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8090:80" # Map host port 8090 to container port 80
+      - "8091:8091" # Map host port 8091 to container port 8091
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Mount our custom nginx.conf
+    depends_on:
+      - metrics
+    networks:
+      - app_network
+
+  metrics:
+    image: be-poc:latest
+    expose:
+      - "8878"
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
+
+  frontend:
+    build: fe/.
+    ports:
+      - "3000:3000"
+
+networks:
+  app_network:
+    driver: bridge
