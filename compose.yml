@@ -16,14 +16,14 @@ services:
     expose:
       - "8878"
     ports:
-      - "8080:8080"
+      - "30001:8080" # Map host port 30001 to container port 8080
     networks:
       - app_network
 
   frontend:
     build: fe/.
     ports:
-      - "3000:3000"
+      - "30000:3000" # Map host port 30000 to container port 3000
 
 networks:
   app_network:
