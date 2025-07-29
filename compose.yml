@@ -2,6 +2,7 @@ services:
   gateway:
     image: nginx:latest
     ports:
+      - "30000:80" # allow initial browser load thru gateway (host: 30000 -> container: 80)
       - "30002:8090" # allow browser to fetch http data thru gateway (host: 30002 -> container: 8080)
       - "30003:8091" # allow browser to fetch socketio data thru gateway (host: 30003 -> container: 8091)
     volumes:
@@ -18,5 +19,5 @@ services:
 
   frontend:
     build: fe/.
-    ports:
-      - "30000:3000" #TODO go through nginx? Map host port 30000 to container port 3000
+    expose:
+      - "3000"
