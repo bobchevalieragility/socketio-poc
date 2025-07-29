@@ -1,30 +1,22 @@
 services:
-  nginx:
+  gateway:
     image: nginx:latest
     ports:
-      - "8090:80" # Map host port 8090 to container port 80
-      - "8091:8091" # Map host port 8091 to container port 8091
+      - "30002:8090" # allow browser to fetch http data thru gateway (host: 30002 -> container: 8080)
+      - "30003:8091" # allow browser to fetch socketio data thru gateway (host: 30003 -> container: 8091)
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Mount our custom nginx.conf
     depends_on:
       - backend
-    networks:
-      - app_network
 
   backend:
     build: be/.
     expose:
       - "8878"
     ports:
-      - "30001:8080" # Map host port 30001 to container port 8080
-    networks:
-      - app_network
+      - "30001:8080" # backdoor for triggering socketio update via curl (host: 30001 -> container: 8080)
 
   frontend:
     build: fe/.
     ports:
-      - "30000:3000" # Map host port 30000 to container port 3000
-
-networks:
-  app_network:
-    driver: bridge
+      - "30000:3000" #TODO go through nginx? Map host port 30000 to container port 3000

@@ -6,8 +6,7 @@ export function SimpleFetchComponent() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    // const beUrl = "http://localhost:8080";
-    const beUrl = "http://localhost:8090";
+    const beUrl = "http://localhost:30002";
 
     fetch(beUrl)
       .then((response) => {
@@ -21,7 +20,7 @@ export function SimpleFetchComponent() {
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(`${err.message} from ${beUrl}`);
         setLoading(false);
       });
   }, []);
@@ -39,7 +38,7 @@ export function SimpleFetchComponent() {
     <div className="max-w-[300px] w-full space-y-6 px-4">
       <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
         <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-          Simple HTTP query: 
+          Simple HTTP query:
         </p>
         <p className="leading-6 text-green-700 dark:text-green-200 text-center">
           {msg}

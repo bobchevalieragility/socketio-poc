@@ -18,9 +18,7 @@ export function SocketIoComponent() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // const beUrl = "http://localhost:8878";
-    // const beUrl = "http://localhost:5000";
-    const beUrl = "http://localhost:8091";
+    const beUrl = "http://localhost:30003";
 
     let socket: Socket | null = null;
 
@@ -72,7 +70,7 @@ export function SocketIoComponent() {
     <div className="max-w-[300px] w-full space-y-6 px-4">
       <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
         <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-          Streaming data from SocketIO: 
+          Streaming data from SocketIO:
         </p>
         {availabilityScalar ? (
           <p className="leading-6 text-green-700 dark:text-green-200 text-center">

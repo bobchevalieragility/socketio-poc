@@ -19,6 +19,8 @@ RUN mvn -B -e clean install -DskipTests
 # The third stage prepares the runtime environment
 FROM openjdk:21-slim
 
+RUN apt-get update && apt-get install -y curl
+RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=builder /app/target/*.jar /app.jar
 EXPOSE 8080
