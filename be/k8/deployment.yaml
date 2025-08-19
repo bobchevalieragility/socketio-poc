@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: be-app-deployment
+  namespace: sandbox
 spec:
   replicas: 1
   selector:
@@ -14,8 +15,10 @@ spec:
     spec:
       containers:
       - name: be-app-container
-        image: socketio-poc-backend:latest
-        imagePullPolicy: Never
+        image: agilityrobotics.jfrog.io/svc-docker-local-sandbox/bob-socketio-poc-be:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         - containerPort: 8878
+      imagePullSecrets:
+        - name: artifactory-credentials

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fe-app-deployment
+  namespace: sandbox
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,9 @@ spec:
     spec:
       containers:
       - name: fe-app-container
-        image: socketio-poc-frontend:latest
-        imagePullPolicy: Never
+        image: agilityrobotics.jfrog.io/svc-docker-local-sandbox/bob-socketio-poc-fe:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
+      imagePullSecrets:
+        - name: artifactory-credentials
